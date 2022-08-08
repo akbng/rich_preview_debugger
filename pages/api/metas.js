@@ -1,5 +1,7 @@
 const puppeteer = require("puppeteer");
 
+//? Can't fetch metadata from https://api.daily.dev/r/R6Hn9kZNd why?
+
 export default async function handler(req, res) {
   const { q: url } = req.query;
   try {
@@ -18,7 +20,7 @@ export default async function handler(req, res) {
         return ogMetas;
       });
       res.status(200).json({
-        error: false,
+        error: Object.keys(meta).length === 0,
         msg: Object.keys(meta).length
           ? "Successfully fetched meta data"
           : "No meta data found",
